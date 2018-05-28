@@ -27,7 +27,11 @@ app.post('/:guid', function(req, res) {
 		var stackTrace = stackTrace + '|:----|:-----|\n';
 		var code = req.body.error.stackTrace[0].code
 		for (var lineNum in code) {
-			stackTrace = stackTrace + '| ' + lineNum + ' | `' + code[lineNum] + '` |\n';
+			var codeLine = '';
+			if (code[lineNum] != '') {
+				codeLine = '`' + code[lineNum] + '`';
+			}
+			stackTrace = stackTrace + '| ' + lineNum + ' | ' + codeLine + ' |\n';
 		}
 
 		var payload = JSON.stringify({
@@ -36,7 +40,10 @@ app.post('/:guid', function(req, res) {
 					'_' + req.body.error.message + '_\n' + 
 					'_' + req.body.error.stackTrace[0].file + ': ' + req.body.error.stackTrace[0].lineNumber + '_\n' +
 					stackTrace + 
-					'#' + req.body.error.app.releaseStage + ' ' + '#' + req.body.trigger.type + ' #v' + req.body.error.app.version + 'b' + req.body.error.app.versionCode
+					'#' + req.body.error.app.releaseStage + ' ' + '#' + req.body.trigger.type + ' #v' + req.body.error.app.version + 'b' + req.body.error.app.versionCode,
+			user: webhook.user,
+			icon_url: webhook.icon_url,
+			channel: webhook.channel
 		});
 
 		var post_options = {
@@ -62,4 +69,4 @@ app.post('/:guid', function(req, res) {
 	}
 });
 
-app.listen(8181);
+app.listen(process.env.NODE_PORT || 8181);
