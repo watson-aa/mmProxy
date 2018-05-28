@@ -1,0 +1,14 @@
+{
+    "webhooks": [
+        {
+            "guid": "e597982c-757f-4f6d-90c3-01605f8976d6",
+            "type": "incoming",
+            "host": "wc-mm.cloudandleer.com",
+            "path": "/hooks/jbsewnybktrimqeuwkbuac69yo",
+            "port": 443,
+            "user": "bugbot",
+            "icon_url": "https://wc-mm.cloudandleer.com/static_content/snsbug.png",
+            "channel": "#Bugsnag"
+        }
+    ]
+}
