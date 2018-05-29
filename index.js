@@ -1,6 +1,6 @@
 const config = require("config");
 const express = require("express");
-var https = require('https');
+const https = require('https');
 
 const app = express();
 
@@ -19,9 +19,11 @@ function newWebhook(guid) {
 
 app.use(express.json()); 
 app.post('/:guid', function(req, res) {
-	var webhook = newWebhook(req.params.guid);
+	const webhook = newWebhook(req.params.guid);
 	if (webhook === null) {
 		res.sendStatus(404);
+	} else if (req.body.error.app.releaseStage == 'development') {
+		res.sendStatus(204);
 	} else {
 		var stackTrace = '\n| **Line** | **Code** |\n';
 		var stackTrace = stackTrace + '|:----|:-----|\n';
