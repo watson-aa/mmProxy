@@ -25,15 +25,18 @@ app.post('/:guid', function(req, res) {
 	} else if (req.body.error.app.releaseStage == 'development') {
 		res.sendStatus(204);
 	} else {
-		var stackTrace = '\n| **Line** | **Code** |\n';
-		var stackTrace = stackTrace + '|:----|:-----|\n';
 		var code = req.body.error.stackTrace[0].code
-		for (var lineNum in code) {
-			var codeLine = '';
-			if (code[lineNum] != '') {
-				codeLine = '`' + code[lineNum] + '`';
+		var stackTrace = '';
+		if (code.length > 0) {
+			stackTrace = '\n| **Line** | **Code** |\n';
+			stackTrace = stackTrace + '|:----|:-----|\n';
+			for (var lineNum in code) {
+				var codeLine = '';
+				if (code[lineNum] != '') {
+					codeLine = '`' + code[lineNum] + '`';
+				}
+				stackTrace = stackTrace + '| ' + lineNum + ' | ' + codeLine + ' |\n';
 			}
-			stackTrace = stackTrace + '| ' + lineNum + ' | ' + codeLine + ' |\n';
 		}
 
 		var payload = JSON.stringify({
