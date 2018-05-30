@@ -40,7 +40,7 @@ app.post('/:guid', function(req, res) {
 		}
 
 		var payload = JSON.stringify({
-			text: '##### [' + req.body.project.name + '](' + req.body.error.url + ')  ·  ' + req.body.trigger.message + '\n\n' +
+			text: '##### ' + req.body.project.name + ' :beetle: ' + req.body.trigger.message + ' :beetle: [View on Bugsnag](' + req.body.error.url + ')' + '\n\n' +
 					'**Error** '  + req.body.error.context + '\n' +
 					'_' + req.body.error.message + '_\n' + 
 					'_' + req.body.error.stackTrace[0].file + ': ' + req.body.error.stackTrace[0].lineNumber + '_\n' +
